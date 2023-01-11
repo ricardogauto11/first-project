@@ -7,17 +7,20 @@
     <title>Document</title>
 </head>
 <body>
-    <div id="app"></div>
+    <div id="app">
+        
+    </div>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script>
         const vm = Vue.createApp({
             data() {
                 return {
-                    greet: '<p>Hola vue 3</p>'
+                    attr: "alt",
+                    url_img: "https://images.unsplash.com/photo-1673245555809-f2584fb686eb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3174&q=80"
                 }
             },
-            template: `<div v-html="greet"></div>`,
+            template: `<img v-bind:[attr]="url_img"`
         }).mount('#app');
     </script>
 </body>

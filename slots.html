@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <title>Slots</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      const app = Vue.createApp({
+        template: `
+          <div>
+            <v-layout>
+              <template v-slot:header>
+                <h2>Titulo</h2>
+              </template>
+              <template v-slot:content>
+                <p>Contenido</p>
+              </template>
+            </v-layout>
+          </div>
+        `,
+      });
+
+      app.component("v-layout", {
+        template: `
+          <header>
+            <slot name="header"></slot>
+          </header>
+          <div>
+            <slot name="content"></slot>
+          </div>
+        `,
+      });
+
+      app.component("v-content", {
+        template: `
+          <div>Content</div>
+        `,
+      });
+
+      const vm = app.mount("#app");
+    </script>
+  </body>
+</html>

@@ -14,21 +14,30 @@
       const app = Vue.createApp({
         data() {
           return {
-            items: ["uno", "dos", "tres", ,],
+            items: ["uno", "dos", "tres"],
           };
+        },
+        methods: {
+          remove(id) {
+            const numbers = this.items.filter((el, index) => index !== id);
+            this.items = numbers;
+          },
         },
         template: `
           <ul>
-            <v-item v-for="(item, id) in items" :key="id" v-bind:text="item"></v-item>
+            <v-item
+              v-for="(item, id) in items"
+              :key="id"
+              v-bind:text="item"
+              v-on:click="remove(id)"
+            />
           </ul>
         `,
       });
 
       app.component("v-item", {
         props: {
-          text: {
-            default: "Texto vacio",
-          },
+          text: String,
         },
         template: `
           <li>{{ text }}</li>

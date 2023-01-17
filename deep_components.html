@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <title>Deep components</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            name: "deep components",
+          };
+        },
+        provide() {
+          return {
+            surname: this.name,
+          };
+        },
+        template: `
+          <div>{{ name }}</div>
+          <v-child />
+        `,
+      });
+
+      app.component("v-child", {
+        props: {},
+        template: `
+          <v-grandchild />
+        `,
+      });
+
+      app.component("v-grandchild", {
+        inject: {
+          surname: {
+            default: "default surname",
+          },
+        },
+        template: `
+          <div>{{ surname }}</div>
+        `,
+      });
+
+      const vm = app.mount("#app");
+    </script>
+  </body>
+</html>
